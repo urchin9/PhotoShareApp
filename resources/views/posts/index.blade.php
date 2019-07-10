@@ -1,27 +1,6 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+@section('content')
 
             <div class="content">
                 <form method="post" action="{{ url('posts') }}" enctype="multipart/form-data">
@@ -39,23 +18,22 @@
 
             <div class="container">
                 <div class="cards">
-                    @foreach ($files as $file)
+                    @foreach ($posts as $post)
                         <div class="card" style="width: 24%">
-                            <img class="card-img-top" src="{{ url('/posts/' . $file) }}">
-
+                            <img class="card-img-top" src="{{ url('/posts/' . $post->img_filename) }}">
                             <div class="card-body">
-                                <form action="{{ url('/posts/' . $file) }}" method="POST">
+                             @if (Auth::id() == $post->user_id)
+                                <form action="{{ url('/posts/' . $post->id) }}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
 
                                     <button class="btn btn-danger">DELETE</button>
                                 </form>
+                            @endif
                             </div>
                         </div>
 
                     @endforeach
                 </div>
             </div>
-        </div>
-    </body>
-</html>
+@endsection

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Storage;
+use App\Post;
+use App\User;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class PostsController extends Controller
 {
@@ -14,10 +17,15 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $disk = Storage::disk('s3');
-        $files = $disk->files('/');
+        // $disk = Storage::disk('s3');
+        // $files = $disk->files('/');
         // dd($files);
-        return view('posts.index', ['files' => $files]);
+        // return view('posts.index', ['files' => $files]);
+
+        $posts = Post::latest()->paginate(30);
+        return view('posts.index', ['posts' => $posts]);
+
+
     }
 
     /**
@@ -43,11 +51,29 @@ class PostsController extends Controller
         ]);
 
         $file = $params['image'];
-        $fileContents = file_get_contents($file->getRealPath());
+        
+        if ($file) {
+            // read data and rotate the image
+            $img = Image::make($request->file('image'));
+            $name = $file->getClientOriginalName();
+            $img->orientate();
+            // resize
+            $width = 500;
+            $img->resize(null, $width, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+    
+            $filename = $file->hashName();
+            $disk = Storage::disk('s3');
+            $disk->put($filename, $img->encode());
+    
+            $post = new Post();
+            $user = User::find(auth()->id());
+            $post->user_id = $user->id;
+            $post->img_filename = $filename;
+            $post->save();
 
-        $disk = Storage::disk('s3');
-        $disk->put($file->hashName(), $fileContents);
-
+        }            
         return redirect('/posts');
     }
 
@@ -98,10 +124,17 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($filename)
+    public function destroy($id)
     {
+        $post = Post::find($id);
+        $filename = $post->img_filename;
+        
+        // dd($filename);
         $disk = Storage::disk('s3');
         $disk->delete($filename);
-        return redirect('/');
+
+        // delete DB record
+        $post->delete();
+        return redirect('/posts');
     }
 }
