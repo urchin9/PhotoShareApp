@@ -18,6 +18,3 @@ Route::resource('/posts', 'PostsController');
 Auth::routes();
 Route::get('/myphotos', 'mypageController@index');
 Route::resource('/favorites', 'mypageController');
-
-
-Route::get('/home', 'HomeController@index')->name('home');

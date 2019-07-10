@@ -17,25 +17,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // $disk = Storage::disk('s3');
-        // $files = $disk->files('/');
-        // dd($files);
-        // return view('posts.index', ['files' => $files]);
-
         $posts = Post::latest()->paginate(30);
         return view('posts.index', ['posts' => $posts]);
-
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -62,11 +45,12 @@ class PostsController extends Controller
             $img->resize(null, $width, function ($constraint) {
                 $constraint->aspectRatio();
             });
-    
+            // save to S3!
             $filename = $file->hashName();
             $disk = Storage::disk('s3');
             $disk->put($filename, $img->encode());
     
+            // create new record in DB
             $post = new Post();
             $user = User::find(auth()->id());
             $post->user_id = $user->id;
@@ -96,29 +80,6 @@ class PostsController extends Controller
 }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -127,6 +88,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        // dd($id);
         $filename = $post->img_filename;
         
         // dd($filename);

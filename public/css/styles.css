@@ -1,0 +1,22 @@
+body {
+    background: #d8e2e0;
+}
+
+/* uploader.blade.php */
+.input-img {
+    margin-bottom: 15px;
+}
+
+.modal-btns {
+    text-align: right;
+}
+
+/* components/photo.blade.php */
+.photo-container {
+    height: 350px;
+}
+
+.photo-item {
+    height: 250px;
+    object-fit: cover;
+}
