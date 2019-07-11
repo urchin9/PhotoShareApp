@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class FavoritesController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,17 +18,9 @@ class FavoritesController extends Controller
      */
     public function index()
     {
-        return view('mypage.favorites');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $user = \Auth::user();
+        $favorites = $user->favorite_posts()->paginate(30);
+        return view('mypage.favorites', ['user' => $user,'posts' => $favorites]);
     }
 
     /**
@@ -32,43 +29,10 @@ class FavoritesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        \Auth::user()->favorite($id);
+        return back();
     }
 
     /**
@@ -79,6 +43,7 @@ class FavoritesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \Auth::user()->unfavorite($id);
+        return back();
     }
 }

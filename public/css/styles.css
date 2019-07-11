@@ -30,6 +30,11 @@ body {
     object-fit: cover;
 }
 
+.del-btn, .like-btn {
+    display: inline-block;
+}
+
+
 /* navtab.blade.php */
 .nav-tabs {
     border-bottom: solid 1px #b8c8d6;
