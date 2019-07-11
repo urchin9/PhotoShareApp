@@ -17,7 +17,9 @@
                     @else
                         <div></div>
                     @endif
-                    @include('components.favorite_btn', ['post' => $post])
+                    <div class="fv-btn">
+                        @include('components.favorite_btn', ['post' => $post])
+                    </div>
                 </div>
             </div>
         @endforeach

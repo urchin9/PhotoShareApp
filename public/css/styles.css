@@ -4,11 +4,24 @@ body {
 
 /* welcome.blade.php */
 .bg {
-    background-image: url('/img/top-bg.jpg');
+    background-image: url('/img/_backgrounds_001.jpg');
     background-size: cover;
-    width: 100%;
-    height: 500px;
-    
+    background-position: center;
+    width: 100vw;
+    height: 100vh;   
+}
+
+.main-title {
+    color: #fff;
+}
+
+.top-list {
+    list-style: none;
+    display: inline-block;
+}
+
+.top-list li {
+    text-align: left;
 }
 
 /* uploader.blade.php */
@@ -43,4 +56,10 @@ body {
 .mypage-navtab.active {
     background-color: #b8c8d6!important;
     border-bottom-color: #b8c8d6!important;
+}
+
+/* components/favorite_btn.blade.php */
+.fv-btn form button {
+  color: #ce6897;
+  font-size: 18px;
 }
