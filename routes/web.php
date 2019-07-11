@@ -17,7 +17,7 @@ Route::get('/', function () {
 Route::resource('/posts', 'PostsController');
 Auth::routes();
 Route::get('/myphotos', 'MyphotosController@index');
-Route::resource('/favorites', 'FavoritesController');
+Route::get('/favorites', 'FavoritesController@index');
 Route::group(['prefix' => 'posts/{id}'], function () {
   Route::post('favorite', 'FavoritesController@store')->name('favorites.favorite');
   Route::delete('unfavorite', 'FavoritesController@destroy')->name('favorites.unfavorite');

@@ -2,6 +2,10 @@ body {
     background: #eee;
 }
 
+.section-title {
+    color: #333;
+}
+
 /* welcome.blade.php */
 .bg {
     background-image: url('/img/_backgrounds_001.jpg');
@@ -60,6 +64,15 @@ body {
 
 /* components/favorite_btn.blade.php */
 .fv-btn form button {
-  color: #ce6897;
-  font-size: 18px;
+    color: #ce6897;
+    font-size: 18px;
+}
+
+.fv-btn form button:hover {
+    color: #a55050;
+    text-decoration: none;
+}
+
+.heart {
+    margin-left: 5px;
 }

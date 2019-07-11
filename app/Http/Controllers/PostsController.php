@@ -10,6 +10,11 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class PostsController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -58,7 +63,7 @@ class PostsController extends Controller
             $post->save();
 
         }            
-        return redirect('/posts');
+        return redirect('/posts')->with('status', 'Image Uploaded');
     }
 
     /**
@@ -97,6 +102,6 @@ class PostsController extends Controller
 
         // delete DB record
         $post->delete();
-        return redirect('/posts');
+        return redirect('/posts')->with('status', 'Image Deleted');
     }
 }

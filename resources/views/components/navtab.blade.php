@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs nav-fill">
+<ul class="nav nav-tabs nav-fill mt-4">
     <li class="nav-item">
         <a class="nav-link mypage-navtab {{ Request::is('myphotos') ? 'active' : '' }}" href="/myphotos">MyPhotos</a>
     </li>

@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-5">
+
+    <div class="container">
+        <h2 class="pt-4 section-title">MyPage</h2>
         @include('components.navtab')
         @include('components.photos')
     </div>

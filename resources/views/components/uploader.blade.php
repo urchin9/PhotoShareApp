@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-info btn-block mt-4" data-toggle="modal" data-target="#uploader">
-    upload
+    Upload
 </button>
 
 <div class="modal fade" id="uploader" tabindex="-1" role="dialog" aria-labelledby="uploaderLabel" aria-hidden="true">
@@ -17,7 +17,7 @@
 
                     <input type="file" name="image" class="input-img">
                     <div class="modal-btns">
-                        <input type="submit" class="btn btn-outline-success" value="Upload!">
+                        <input type="submit" class="btn btn-success" value="Upload!">
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
