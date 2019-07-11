@@ -5,6 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
+        "ext-gd": "*",
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
         "intervention/image": "^2.5",
