@@ -1,5 +1,14 @@
 body {
-    background: #d8e2e0;
+    background: #eee;
+}
+
+/* welcome.blade.php */
+.bg {
+    background-image: url('/img/top-bg.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 500px;
+    
 }
 
 /* uploader.blade.php */
@@ -19,4 +28,14 @@ body {
 .photo-item {
     height: 250px;
     object-fit: cover;
+}
+
+/* navtab.blade.php */
+.nav-tabs {
+    border-bottom: solid 1px #b8c8d6;
+}
+
+.mypage-navtab.active {
+    background-color: #b8c8d6!important;
+    border-bottom-color: #b8c8d6!important;
 }

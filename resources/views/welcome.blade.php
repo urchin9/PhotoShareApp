@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<p>landing page</p>
+<div class="bg">
+    
+</div>
 @endsection

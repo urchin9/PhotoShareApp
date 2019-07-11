@@ -16,5 +16,5 @@ Route::get('/', function () {
 });
 Route::resource('/posts', 'PostsController');
 Auth::routes();
-Route::get('/myphotos', 'mypageController@index');
-Route::resource('/favorites', 'mypageController');
+Route::get('/myphotos', 'MyphotosController@index');
+Route::resource('/favorites', 'FavoritesController');
