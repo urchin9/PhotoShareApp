@@ -102,6 +102,6 @@ class PostsController extends Controller
 
         // delete DB record
         $post->delete();
-        return redirect('/posts')->with('status', 'Image Deleted');
+        return redirect('/posts')->with('status', 'Deleted an Image');
     }
 }
