@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class FavoritesController extends Controller
@@ -32,7 +33,9 @@ class FavoritesController extends Controller
     public function store(Request $request, $id)
     {
         \Auth::user()->favorite($id);
-        return back();
+        $post = Post::find($id);
+        $fv_cnt = $post->favorite_users()->count();
+        return  response()->json(['fv_cnt'=>$fv_cnt]);
     }
 
     /**
@@ -44,6 +47,8 @@ class FavoritesController extends Controller
     public function destroy($id)
     {
         \Auth::user()->unfavorite($id);
-        return back();
+        $post = Post::find($id);
+        $fv_cnt = $post->favorite_users()->count();
+        return  response()->json(['fv_cnt'=>$fv_cnt]);
     }
 }

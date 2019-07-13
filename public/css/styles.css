@@ -63,7 +63,7 @@ body {
 }
 
 /* components/favorite_btn.blade.php */
-.fv-btn form button {
+/* .fv-btn form button {
     color: #ce6897;
     font-size: 18px;
 }
@@ -71,6 +71,14 @@ body {
 .fv-btn form button:hover {
     color: #a55050;
     text-decoration: none;
+} */
+
+.fvbtn {
+    color: #ce6897;
+}
+
+.fvbtn:hover {
+    color: #a55050;
 }
 
 .heart {

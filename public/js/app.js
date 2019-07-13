@@ -11595,7 +11595,52 @@ window.Vue = __webpack_require__(36);
 Vue.component('example-component', __webpack_require__(40));
 
 var app = new Vue({
-  el: '#app'
+    el: '#app'
+});
+
+// お気に入りボタン押下でお気に入り登録、解除する処理
+$(".fvbtn").click(function () {
+    var postId = $(this).data('postid');
+    var isFavorite = $(this).hasClass('favorite');
+    var urlFavorite = '/posts/' + postId + '/favorite';
+    var urlUnFavorite = '/posts/' + postId + '/unfavorite';
+    var url = void 0;
+    var method = void 0;
+
+    if (isFavorite) {
+        url = urlFavorite;
+        method = 'POST';
+    } else {
+        url = urlUnFavorite;
+        method = 'DELETE';
+    }
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: method,
+        url: url,
+        data: { postId: postId, _token: token },
+        dataType: 'json'
+    }).done(function (data) {
+        console.log('success');
+        console.log(data.fv_cnt);
+
+        if (isFavorite) {
+            $('#' + postId).addClass('fas');
+            $('#' + postId).removeClass('far');
+            $('#' + postId).parent().removeClass('favorite');
+            $('#' + postId).parent().addClass('unfavorite');
+        } else {
+            $('#' + postId).removeClass('fas');
+            $('#' + postId).addClass('far');
+            $('#' + postId).parent().addClass('favorite');
+            $('#' + postId).parent().removeClass('unfavorite');
+        }
+        // お気に入りに登録しているユーザ数
+        $('#cnt' + postId).html(data.fv_cnt);
+    });
 });
 
 /***/ }),
